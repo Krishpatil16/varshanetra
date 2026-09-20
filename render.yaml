@@ -1,0 +1,28 @@
+services:
+  - type: web
+    name: varshanetra-api
+    runtime: docker
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
+    healthCheckPath: /health
+    envVars:
+      - key: APP_ENV
+        value: demo
+      - key: DEMO_MODE
+        value: "true"
+
+  - type: web
+    name: varshanetra-web
+    runtime: static
+    buildCommand: cd frontend && npm ci && npm run build
+    staticPublishPath: frontend/dist
+    envVars:
+      - key: VITE_API_BASE_URL
+        fromService:
+          type: web
+          name: varshanetra-api
+          property: host
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html

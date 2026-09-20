@@ -1,0 +1,17 @@
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+
+node_modules/
+dist/
+.expo/
+.parcel-cache/
+
+.env
+.env.*
+!.env.example
+
+*.log
+.DS_Store
